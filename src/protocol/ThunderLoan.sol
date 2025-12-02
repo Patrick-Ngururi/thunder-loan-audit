@@ -137,6 +137,7 @@ contract ThunderLoan is Initializable, OwnableUpgradeable, UUPSUpgradeable, Orac
     /*//////////////////////////////////////////////////////////////
                            EXTERNAL FUNCTIONS
     //////////////////////////////////////////////////////////////*/
+    // @Audit-Informational: Change parameter name to `poolFactoryAddress` insted of `tswapAddress` for consistency with OracleUpgradeable.sol::__Oracle_init
     function initialize(address tswapAddress) external initializer {
         __Ownable_init(msg.sender);
         __UUPSUpgradeable_init();
