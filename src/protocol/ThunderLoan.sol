@@ -262,7 +262,7 @@ contract ThunderLoan is Initializable, OwnableUpgradeable, UUPSUpgradeable, Orac
             return assetToken;
         } else {
             AssetToken assetToken = s_tokenToAssetToken[token];
-            delete s_tokenToAssetToken[token];
+            delete s_tokenToAssetToken[token]; // q does deleting a mapping work right
             emit AllowedTokenSet(token, assetToken, allowed);
             return assetToken;
         }
