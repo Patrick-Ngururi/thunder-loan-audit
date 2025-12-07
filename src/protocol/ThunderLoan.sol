@@ -150,6 +150,7 @@ contract ThunderLoan is Initializable, OwnableUpgradeable, UUPSUpgradeable, Orac
         s_flashLoanFee = 3e15; // 0.3% ETH fee
     }
 
+    // @Audit-Informational: Function has no NATSPEC.
     function deposit(IERC20 token, uint256 amount) external revertIfZero(amount) revertIfNotAllowedToken(token) {
         AssetToken assetToken = s_tokenToAssetToken[token];
         uint256 exchangeRate = assetToken.getExchangeRate();
@@ -249,10 +250,12 @@ contract ThunderLoan is Initializable, OwnableUpgradeable, UUPSUpgradeable, Orac
     function setAllowedToken(IERC20 token, bool allowed) external onlyOwner returns (AssetToken) {
         if (allowed) {
             if (address(s_tokenToAssetToken[token]) != address(0)) {
-                revert ThunderLoan__AlreadyAllowed();
+                revert ThunderLoan__AlreadyAllowed(); // @Audit-info: revert with token
             }
-            string memory name = string.concat("ThunderLoan ", IERC20Metadata(address(token)).name());
-            string memory symbol = string.concat("tl", IERC20Metadata(address(token)).symbol());
+            // What if the token passed doesn't have a name?
+            string memory name = string.concat("ThunderLoan ", IERC20Metadata(address(token)).name()); // ThunderLoan
+            // USDC
+            string memory symbol = string.concat("tl", IERC20Metadata(address(token)).symbol()); // tlUSDC
             AssetToken assetToken = new AssetToken(address(this), token, name, symbol);
             s_tokenToAssetToken[token] = assetToken;
             emit AllowedTokenSet(token, assetToken, allowed);
