@@ -51,20 +51,24 @@ contract AssetToken is ERC20 {
                                FUNCTIONS
     //////////////////////////////////////////////////////////////*/
     constructor(
-        address thunderLoan,
-        IERC20 underlying,
-        string memory assetName,
-        string memory assetSymbol
+        address thunderLoan, // ThunderLoan.sol address
+        IERC20 underlying, // Token to deposit in exchange for AssetTokens
+        string memory assetName, // AssetToken Name
+        string memory assetSymbol // AssetToken Symbol
     )
+        // ERC20 Constructor w/ parameters
         ERC20(assetName, assetSymbol)
+        // Zero Address checks for thunderloan and underlying parameters
         revertIfZeroAddress(thunderLoan)
         revertIfZeroAddress(address(underlying))
     {
+        // Assigning constructor arguments to state variables.
         i_thunderLoan = thunderLoan;
         i_underlying = underlying;
         s_exchangeRate = STARTING_EXCHANGE_RATE;
     }
 
+    // e only the thunderloan contract can mint asset tokens
     function mint(address to, uint256 amount) external onlyThunderLoan {
         _mint(to, amount);
     }
@@ -74,6 +78,10 @@ contract AssetToken is ERC20 {
     }
 
     function transferUnderlyingTo(address to, uint256 amount) external onlyThunderLoan {
+        // weird erc20s???
+        // q what happens if USDC blacklists the thunderloan contract?
+        // q what happens if USDC blacklists the asset token contract?
+        // @follow up, weird ERC20s with USDC
         i_underlying.safeTransfer(to, amount);
     }
 
