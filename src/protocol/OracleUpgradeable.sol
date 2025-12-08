@@ -20,6 +20,7 @@ contract OracleUpgradeable is Initializable {
     //@Audit-Informational: Forked tests are preferred when testing reliance on live code
     function getPriceInWeth(address token) public view returns (uint256) {
         address swapPoolOfToken = IPoolFactory(s_poolFactory).getPool(token);
+        // @Audit-Question: What happens if a token has 6 decimals? Is the price wrong?
         return ITSwapPool(swapPoolOfToken).getPriceOfOnePoolTokenInWeth();
     }
 
