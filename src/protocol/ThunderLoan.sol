@@ -95,7 +95,8 @@ contract ThunderLoan is Initializable, OwnableUpgradeable, UUPSUpgradeable, Orac
     mapping(IERC20 => AssetToken) public s_tokenToAssetToken;
     
     // The fee in WEI, it should have 18 decimals. Each flash loan takes a flat fee of the token price.
-    // @Audit-Informational: s_feePrecision never changes, should be constant or immutable.
+    
+    // @Audit-Informational: Unchanged storage variables should be marked as constant or immutable
     uint256 private s_feePrecision;
     // @Audit-Informational: s_flashLoanFee never changes, should be constant or immutable.
     uint256 private s_flashLoanFee; // 0.3% ETH fee
@@ -281,6 +282,8 @@ contract ThunderLoan is Initializable, OwnableUpgradeable, UUPSUpgradeable, Orac
     // @Audit-Informational: Function missing NATSPEC!
     function getCalculatedFee(IERC20 token, uint256 amount) public view returns (uint256 fee) {
         //slither-disable-next-line divide-before-multiply
+        
+        // @Audit-High: If the Fee is calculated in tokens, the value should reflect that.
         uint256 valueOfBorrowedToken = (amount * getPriceInWeth(address(token))) / s_feePrecision;
         //slither-disable-next-line divide-before-multiply
         fee = (valueOfBorrowedToken * s_flashLoanFee) / s_feePrecision;

@@ -22,6 +22,8 @@ contract AssetToken is ERC20 {
     // ie: s_exchangeRate = 2
     // means 1 asset token is worth 2 underlying tokens
     uint256 private s_exchangeRate;
+    // @Audit-Question: What does this Exchange Rate do?
+    // Answer: This is the rate between an underlying token and it's associated asset token
     uint256 public constant EXCHANGE_RATE_PRECISION = 1e18;
     uint256 private constant STARTING_EXCHANGE_RATE = 1e18;
 
@@ -81,7 +83,9 @@ contract AssetToken is ERC20 {
         // weird erc20s???
         // q what happens if USDC blacklists the thunderloan contract?
         // q what happens if USDC blacklists the asset token contract?
+        // Answer: The protocol would be frozen, likely medium severity - despite this, likely invalid in competitive audits.
         // @follow up, weird ERC20s with USDC
+        // @Audit-medium: the protocol will be frozen, and 
         i_underlying.safeTransfer(to, amount);
     }
 
