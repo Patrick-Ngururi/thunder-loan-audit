@@ -163,9 +163,10 @@ contract ThunderLoan is Initializable, OwnableUpgradeable, UUPSUpgradeable, Orac
         emit Deposit(msg.sender, token, amount);
         assetToken.mint(msg.sender, mintAmount);
 
-        // @Audit: Follow-up
+        // @Audit-High - We should not be updating the exchange rate in the deposit function, this breaks the internal accounting of AssetToken making it impossible to redeem
         uint256 calculatedFee = getCalculatedFee(token, amount);
         assetToken.updateExchangeRate(calculatedFee);
+
         token.safeTransferFrom(msg.sender, address(assetToken), amount);
     }
 
