@@ -250,6 +250,7 @@ contract ThunderLoan is Initializable, OwnableUpgradeable, UUPSUpgradeable, Orac
     }
 
     // @Audit-Informational: Where's the NATSPEC?
+    // @Audit-Low: Unable to use repay to repay a flash loan inside of another flash loan.
     function repay(IERC20 token, uint256 amount) public {
         if (!s_currentlyFlashLoaning[token]) {
             revert ThunderLoan__NotCurrentlyFlashLoaning();
