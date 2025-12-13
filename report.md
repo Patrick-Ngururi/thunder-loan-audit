@@ -64,7 +64,7 @@ Consider introducing checks for `msg.sender` to ensure the recipient of the mone
 <details><summary>2 Found Instances</summary>
 
 
-- Found in src/protocol/ThunderLoan.sol [Line: 235](src/protocol/ThunderLoan.sol#L235)
+- Found in src/protocol/ThunderLoan.sol [Line: 254](src/protocol/ThunderLoan.sol#L254)
 
 	```solidity
 	    function repay(IERC20 token, uint256 amount) public {
@@ -87,46 +87,46 @@ Changing state after an external call can lead to re-entrancy attacks.Use the ch
 <details><summary>12 Found Instances</summary>
 
 
-- Found in src/protocol/ThunderLoan.sol [Line: 193](src/protocol/ThunderLoan.sol#L193)
+- Found in src/protocol/ThunderLoan.sol [Line: 209](src/protocol/ThunderLoan.sol#L209)
 
 	State is changed at: `s_currentlyFlashLoaning[token] = true`, `s_currentlyFlashLoaning[token] = false`
 	```solidity
 	        uint256 startingBalance = IERC20(token).balanceOf(address(assetToken));
 	```
 
-- Found in src/protocol/ThunderLoan.sol [Line: 206](src/protocol/ThunderLoan.sol#L206)
+- Found in src/protocol/ThunderLoan.sol [Line: 222](src/protocol/ThunderLoan.sol#L222)
 
 	State is changed at: `s_currentlyFlashLoaning[token] = true`, `s_currentlyFlashLoaning[token] = false`
 	```solidity
 	        assetToken.updateExchangeRate(fee);
 	```
 
-- Found in src/protocol/ThunderLoan.sol [Line: 211](src/protocol/ThunderLoan.sol#L211)
+- Found in src/protocol/ThunderLoan.sol [Line: 227](src/protocol/ThunderLoan.sol#L227)
 
 	State is changed at: `s_currentlyFlashLoaning[token] = false`
 	```solidity
 	        assetToken.transferUnderlyingTo(receiverAddress, amount);
 	```
 
-- Found in src/protocol/ThunderLoan.sol [Line: 228](src/protocol/ThunderLoan.sol#L228)
+- Found in src/protocol/ThunderLoan.sol [Line: 245](src/protocol/ThunderLoan.sol#L245)
 
 	State is changed at: `s_currentlyFlashLoaning[token] = false`
 	```solidity
 	        uint256 endingBalance = token.balanceOf(address(assetToken));
 	```
 
-- Found in src/protocol/ThunderLoan.sol [Line: 248](src/protocol/ThunderLoan.sol#L248)
+- Found in src/protocol/ThunderLoan.sol [Line: 269](src/protocol/ThunderLoan.sol#L269)
 
 	State is changed at: `s_tokenToAssetToken[token] = assetToken`
 	```solidity
-	            string memory name = string.concat("ThunderLoan ", IERC20Metadata(address(token)).name());
+	            string memory name = string.concat("ThunderLoan ", IERC20Metadata(address(token)).name()); // ThunderLoan
 	```
 
-- Found in src/protocol/ThunderLoan.sol [Line: 249](src/protocol/ThunderLoan.sol#L249)
+- Found in src/protocol/ThunderLoan.sol [Line: 271](src/protocol/ThunderLoan.sol#L271)
 
 	State is changed at: `s_tokenToAssetToken[token] = assetToken`
 	```solidity
-	            string memory symbol = string.concat("tl", IERC20Metadata(address(token)).symbol());
+	            string memory symbol = string.concat("tl", IERC20Metadata(address(token)).symbol()); // tlUSDC
 	```
 
 - Found in src/upgradedProtocol/ThunderLoanUpgraded.sol [Line: 191](src/upgradedProtocol/ThunderLoanUpgraded.sol#L191)
@@ -184,19 +184,19 @@ Contracts have owners with privileged rights to perform admin tasks and need to 
 <details><summary>6 Found Instances</summary>
 
 
-- Found in src/protocol/ThunderLoan.sol [Line: 243](src/protocol/ThunderLoan.sol#L243)
+- Found in src/protocol/ThunderLoan.sol [Line: 263](src/protocol/ThunderLoan.sol#L263)
 
 	```solidity
 	    function setAllowedToken(IERC20 token, bool allowed) external onlyOwner returns (AssetToken) {
 	```
 
-- Found in src/protocol/ThunderLoan.sol [Line: 269](src/protocol/ThunderLoan.sol#L269)
+- Found in src/protocol/ThunderLoan.sol [Line: 295](src/protocol/ThunderLoan.sol#L295)
 
 	```solidity
 	    function updateFlashLoanFee(uint256 newFee) external onlyOwner {
 	```
 
-- Found in src/protocol/ThunderLoan.sol [Line: 297](src/protocol/ThunderLoan.sol#L297)
+- Found in src/protocol/ThunderLoan.sol [Line: 324](src/protocol/ThunderLoan.sol#L324)
 
 	```solidity
 	    function _authorizeUpgrade(address newImplementation) internal override onlyOwner { }
@@ -231,7 +231,7 @@ Check for `address(0)` when assigning values to address state variables.
 <details><summary>1 Found Instances</summary>
 
 
-- Found in src/protocol/OracleUpgradeable.sol [Line: 16](src/protocol/OracleUpgradeable.sol#L16)
+- Found in src/protocol/OracleUpgradeable.sol [Line: 17](src/protocol/OracleUpgradeable.sol#L17)
 
 	```solidity
 	        s_poolFactory = poolFactoryAddress;
@@ -248,19 +248,19 @@ If a function is marked public but is not used internally, consider marking it a
 <details><summary>6 Found Instances</summary>
 
 
-- Found in src/protocol/ThunderLoan.sol [Line: 235](src/protocol/ThunderLoan.sol#L235)
+- Found in src/protocol/ThunderLoan.sol [Line: 254](src/protocol/ThunderLoan.sol#L254)
 
 	```solidity
 	    function repay(IERC20 token, uint256 amount) public {
 	```
 
-- Found in src/protocol/ThunderLoan.sol [Line: 281](src/protocol/ThunderLoan.sol#L281)
+- Found in src/protocol/ThunderLoan.sol [Line: 308](src/protocol/ThunderLoan.sol#L308)
 
 	```solidity
 	    function getAssetFromToken(IERC20 token) public view returns (AssetToken) {
 	```
 
-- Found in src/protocol/ThunderLoan.sol [Line: 285](src/protocol/ThunderLoan.sol#L285)
+- Found in src/protocol/ThunderLoan.sol [Line: 312](src/protocol/ThunderLoan.sol#L312)
 
 	```solidity
 	    function isCurrentlyFlashLoaning(IERC20 token) public view returns (bool) {
@@ -354,7 +354,7 @@ Consider removing empty blocks.
 <details><summary>2 Found Instances</summary>
 
 
-- Found in src/protocol/ThunderLoan.sol [Line: 297](src/protocol/ThunderLoan.sol#L297)
+- Found in src/protocol/ThunderLoan.sol [Line: 324](src/protocol/ThunderLoan.sol#L324)
 
 	```solidity
 	    function _authorizeUpgrade(address newImplementation) internal override onlyOwner { }
@@ -400,7 +400,7 @@ Redundant import statement. Consider removing it.
 <details><summary>1 Found Instances</summary>
 
 
-- Found in src/interfaces/IFlashLoanReceiver.sol [Line: 4](src/interfaces/IFlashLoanReceiver.sol#L4)
+- Found in src/interfaces/IFlashLoanReceiver.sol [Line: 5](src/interfaces/IFlashLoanReceiver.sol#L5)
 
 	```solidity
 	import { IThunderLoan } from "./IThunderLoan.sol";
@@ -417,7 +417,7 @@ There are state variable changes in this function but no event is emitted. Consi
 <details><summary>2 Found Instances</summary>
 
 
-- Found in src/protocol/ThunderLoan.sol [Line: 269](src/protocol/ThunderLoan.sol#L269)
+- Found in src/protocol/ThunderLoan.sol [Line: 295](src/protocol/ThunderLoan.sol#L295)
 
 	```solidity
 	    function updateFlashLoanFee(uint256 newFee) external onlyOwner {
@@ -440,7 +440,7 @@ Function returns a value but it is ignored. Consider checking the return value.
 <details><summary>2 Found Instances</summary>
 
 
-- Found in src/protocol/ThunderLoan.sol [Line: 215](src/protocol/ThunderLoan.sol#L215)
+- Found in src/protocol/ThunderLoan.sol [Line: 232](src/protocol/ThunderLoan.sol#L232)
 
 	```solidity
 	        receiverAddress.functionCall(
