@@ -28,8 +28,9 @@
 <div class="full-page">
     <img src="./Cat.jpg" alt="Logo">
     <div>
-    <h1>Protocol Audit Report</h1>
-    <h3>Prepared by: Patrick Ngururi</h3>
+        <h1>Protocol Audit Report</h1>
+        <h3>Prepared by: Patrick Ngururi</h3>
+        <h4>https://github.com/Patrick-Ngururi</h4>
     </div>
 </div>
 
